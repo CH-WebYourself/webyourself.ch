@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useClipboard } from "@vueuse/core";
-import { CheckCircleIcon, AtSymbolIcon } from "@heroicons/vue/24/outline";
+import {
+  CheckCircleIcon,
+  AtSymbolIcon,
+  SunIcon,
+  MoonIcon,
+} from "@heroicons/vue/24/outline";
 import { isDark, toggleTheme } from "./services/useDarkMode";
 
 const email = ref("info@webyourself.ch");
@@ -10,10 +15,17 @@ const { isSupported, copy, copied } = useClipboard();
 
 <template>
   <div class="webyourself h-screen w-full grid place-items-center bg-base-300">
+    <div class="absolute top-5 right-5">
+      <button class="btn btn-ghost btn-square" @click="toggleTheme()">
+        <MoonIcon v-if="isDark" class="h-6 w-6" />
+        <SunIcon v-else class="h-6 w-6" />
+      </button>
+    </div>
+
     <div class="card w-full sm:w-96 bg-base-100 shadow-xl">
       <figure class="px-10 pt-10">
         <div
-          class="w-full h-36 grid place-items-center rounded-xl bg-wy box"
+          class="w-full h-56 grid place-items-center rounded-xl bg-wy box"
           :class="{ circle: isDark }"
         >
           <img
