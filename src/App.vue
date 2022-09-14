@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { useClipboard } from "@vueuse/core";
 import { isDark, toggleTheme } from "./services/useDarkMode";
+
+const email = ref("info@webyourself.ch");
+const { isSupported, copy, copied } = useClipboard();
 </script>
 
 <template>
@@ -26,22 +31,44 @@ import { isDark, toggleTheme } from "./services/useDarkMode";
         </p>
 
         <div class="card-actions mt-5">
-          <button class="btn btn-outline" @click="toggleTheme()">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6 mr-2"
-            >
-              <path
-                stroke-linecap="round"
-                d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"
-              />
-            </svg>
-            Email-Adresse kopieren
-          </button>
+          <div v-if="isSupported">
+            <button class="btn btn-outline" @click="copy(email)">
+              <svg
+                v-if="!copied"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 mr-2"
+              >
+                <path
+                  stroke-linecap="round"
+                  d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"
+                />
+              </svg>
+
+              <svg
+                v-else
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 mr-2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+
+              <span v-if="!copied">Email-Adresse kopieren</span>
+              <span v-else>Email-Adresse kopiert</span>
+            </button>
+          </div>
+          <p v-else>Ihr Browser unterstützt die Clipboard API nicht</p>
         </div>
       </div>
     </div>
