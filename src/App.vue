@@ -35,7 +35,7 @@ const { isSupported, copy, copied } = useClipboard();
         <div class="card w-full sm:w-96 bg-base-100 shadow-xl">
           <figure class="px-10 pt-10">
             <div
-              class="w-full h-56 grid place-items-center rounded-xl bg-wy box"
+              class="w-full h-40 sm:h-56 grid place-items-center rounded-xl bg-wy box"
               :class="{ circle: isDark }"
             >
               <img
