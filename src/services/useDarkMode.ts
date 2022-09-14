@@ -9,4 +9,4 @@ const isDark = useDark({
 
 const toggleTheme = useToggle(isDark);
 
-export default toggleTheme;
+export { isDark, toggleTheme };

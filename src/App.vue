@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import toggleTheme from "./actions/toggleThemeAction";
+import { isDark, toggleTheme } from "./services/useDarkMode";
 </script>
 
 <template>
   <div class="webyourself h-screen w-full grid place-items-center bg-base-300">
     <div class="card w-full sm:w-96 bg-base-100 shadow-xl">
       <figure class="px-10 pt-10">
-        <div class="w-full h-36 grid place-items-center rounded-xl bg-wy">
+        <div
+          class="w-full h-36 grid place-items-center rounded-xl bg-wy box"
+          :class="{ circle: isDark }"
+        >
           <img
             src="./assets/webyourself.png"
             alt="Webyourself Logo"
@@ -44,3 +47,14 @@ import toggleTheme from "./actions/toggleThemeAction";
     </div>
   </div>
 </template>
+
+<style scoped>
+.box {
+  clip-path: circle(75%);
+  transition: clip-path 0.25s;
+}
+
+.circle {
+  clip-path: circle(25%);
+}
+</style>
